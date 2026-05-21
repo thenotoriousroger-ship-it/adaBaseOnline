@@ -16,6 +16,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class Postre extends JFrame {
 
@@ -55,21 +56,26 @@ public class Postre extends JFrame {
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 210, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Postres");
+		lblNewLabel.setForeground(new Color(255, 128, 128));
 		lblNewLabel.setBounds(10, 11, 46, 14);
 		contentPane.add(lblNewLabel);
 		
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		JList list = new JList(modeloLista);
+		list.setBackground(new Color(255, 255, 255));
 		list.setBounds(10, 36, 319, 214);
 		contentPane.add(list);
 		cargarProductosDesdeBD();
 		
 		JButton btnNewButton = new JButton("Añadir");
+		btnNewButton.setBackground(new Color(255, 128, 128));
+		btnNewButton.setForeground(new Color(255, 128, 128));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int id=((Producto) list.getSelectedValue()).getId();

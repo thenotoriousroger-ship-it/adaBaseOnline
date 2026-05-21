@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class Ventas extends JFrame {
 
@@ -52,27 +53,33 @@ public class Ventas extends JFrame {
 		this.usuario=usr;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 604, 327);
+		setBounds(100, 100, 732, 401);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 210, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Bienvenido "+usuario);
-		lblNewLabel.setBounds(10, 11, 200, 14);
+		lblNewLabel.setBackground(new Color(255, 0, 255));
+		lblNewLabel.setBounds(20, 11, 200, 14);
 		contentPane.add(lblNewLabel);
 		
 		JToolBar toolBar = new JToolBar();
+		toolBar.setBackground(new Color(255, 255, 255));
 		toolBar.setOrientation(SwingConstants.VERTICAL);
-		toolBar.setBounds(0, 36, 112, 214);
+		toolBar.setBounds(20, 36, 112, 214);
 		contentPane.add(toolBar);
 		
 		JLabel lblNewLabel_3 = new JLabel("esto es un easter egg");
-		lblNewLabel_3.setBounds(154, 22, 140, 14);
+		lblNewLabel_3.setBackground(new Color(255, 0, 255));
+		lblNewLabel_3.setBounds(164, 11, 140, 14);
 		contentPane.add(lblNewLabel_3);
 		lblNewLabel_3.setVisible(false);
 		
 		JButton btnNewButton = new JButton("Nueva Venta");
+		btnNewButton.setBackground(new Color(255, 255, 255));
+		btnNewButton.setForeground(new Color(255, 128, 128));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nombre=JOptionPane.showInputDialog("nombre del cliente");
@@ -84,9 +91,13 @@ public class Ventas extends JFrame {
 		toolBar.add(btnNewButton);
 		
 		JButton btnNewButton_2 = new JButton("Ver cliente");
+		btnNewButton_2.setBackground(new Color(255, 255, 255));
+		btnNewButton_2.setForeground(new Color(255, 128, 128));
 		toolBar.add(btnNewButton_2);
 		
 		JButton btnNewButton_1 = new JButton("Nuevo Ítem");
+		btnNewButton_1.setBackground(new Color(255, 255, 255));
+		btnNewButton_1.setForeground(new Color(255, 128, 128));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TipoDeProducto nuevaVentana = new TipoDeProducto(Ventas.this);
@@ -96,6 +107,8 @@ public class Ventas extends JFrame {
 		toolBar.add(btnNewButton_1);
 		
 		JButton btnBorrar = new JButton("Borrar ítem");
+		btnBorrar.setBackground(new Color(255, 255, 255));
+		btnBorrar.setForeground(new Color(255, 128, 128));
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int filaSeleccionada = table.getSelectedRow();
@@ -110,6 +123,8 @@ public class Ventas extends JFrame {
 		toolBar.add(btnBorrar);
 		
 		JButton btnNewButton_3 = new JButton("Cobrar");
+		btnNewButton_3.setBackground(new Color(255, 255, 255));
+		btnNewButton_3.setForeground(new Color(255, 128, 128));
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			 if (modeloTabla.getRowCount() == 0) {JOptionPane.showMessageDialog(null, "No hay productos en el carrito para cobrar.");
@@ -131,6 +146,8 @@ public class Ventas extends JFrame {
 		toolBar.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Editar existencias");
+		btnNewButton_4.setBackground(new Color(255, 255, 255));
+		btnNewButton_4.setForeground(new Color(255, 128, 128));
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AgregarExistencias nuevaVentana = new AgregarExistencias();
@@ -140,7 +157,7 @@ public class Ventas extends JFrame {
 		toolBar.add(btnNewButton_4);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(122, 36, 456, 206);
+		scrollPane.setBounds(164, 36, 456, 206);
 		contentPane.add(scrollPane);
 		
 		String[] columnas = {"Cantidad", "Producto", "Precio", "ID", "Producto"};

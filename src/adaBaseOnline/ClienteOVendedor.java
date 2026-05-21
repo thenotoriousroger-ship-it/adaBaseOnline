@@ -62,7 +62,7 @@ public class ClienteOVendedor extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Bienvenido a Danny Desserts and More");
-		lblNewLabel.setForeground(new Color(223, 90, 119));
+		lblNewLabel.setForeground(new Color(255, 128, 128));
 		lblNewLabel.setFont(new Font("Bahnschrift", Font.BOLD, 14));
 		lblNewLabel.setBounds(74, 23, 273, 14);
 		contentPane.add(lblNewLabel);
