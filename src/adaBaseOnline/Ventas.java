@@ -91,10 +91,10 @@ public class Ventas extends JFrame {
 		toolBar.add(btnNewButton);
 		
 		JButton btnNewButton_2 = new JButton("Ver cliente");
-<<<<<<< HEAD
+
 		btnNewButton_2.setBackground(new Color(255, 255, 255));
 		btnNewButton_2.setForeground(new Color(255, 128, 128));
-=======
+
 		btnNewButton_2.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        String clienteABuscar = nombre;
@@ -107,7 +107,6 @@ public class Ventas extends JFrame {
 		        }
 		    }
 		});
->>>>>>> branch 'master' of https://github.com/thenotoriousroger-ship-it/adaBaseOnline.git
 		toolBar.add(btnNewButton_2);
 		
 		JButton btnNewButton_1 = new JButton("Nuevo Ítem");
