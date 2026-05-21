@@ -218,7 +218,8 @@ public class Ventas extends JFrame {
 	public void recibirProductoSeleccionado(int id, boolean prod) {
 		for (int i = 0; i < modeloTabla.getRowCount(); i++) {
 	        int idFila = (int) modeloTabla.getValueAt(i, 3);
-	        if (id == idFila) {
+	        boolean esPastel=(boolean) modeloTabla.getValueAt(i, 4);
+	        if (id == idFila && prod==esPastel) {
 	            int cantActual = (int) modeloTabla.getValueAt(i, 0);
 	            modeloTabla.setValueAt(cantActual + 1, i, 0);
 	            actualizarTotal();

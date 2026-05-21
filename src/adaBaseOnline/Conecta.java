@@ -18,7 +18,7 @@ public class Conecta {
 
 
 		public Conecta() {
-			url1 = "jdbc:postgresql://aws-1-us-east-1.pooler.supabase.com:6543/postgres";
+			url1 = "jdbc:postgresql://aws-1-us-east-1.pooler.supabase.com:6543/postgres?prepareThreshold=0";
             user = "postgres.wpwlamrkrofpedgjdpoe";
             password = "SoloOpinoSinAyuda";
 		}
