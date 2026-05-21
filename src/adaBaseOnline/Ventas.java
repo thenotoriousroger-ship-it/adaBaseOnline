@@ -84,6 +84,18 @@ public class Ventas extends JFrame {
 		toolBar.add(btnNewButton);
 		
 		JButton btnNewButton_2 = new JButton("Ver cliente");
+		btnNewButton_2.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        String clienteABuscar = nombre;
+		        if (clienteABuscar == null || clienteABuscar.trim().isEmpty()) {
+		            clienteABuscar = JOptionPane.showInputDialog(null, "Ingresa el nombre del cliente a buscar:", "Buscar Cliente", JOptionPane.QUESTION_MESSAGE);
+		        }
+		        if (clienteABuscar != null && !clienteABuscar.trim().isEmpty()) {
+		            String infoCliente = conexionBD.getHistorialCliente(clienteABuscar);
+		            JOptionPane.showMessageDialog(null, infoCliente, "Información del Cliente", JOptionPane.INFORMATION_MESSAGE);
+		        }
+		    }
+		});
 		toolBar.add(btnNewButton_2);
 		
 		JButton btnNewButton_1 = new JButton("Nuevo Ítem");
@@ -116,7 +128,24 @@ public class Ventas extends JFrame {
 		            return;}
 		     int respuesta = JOptionPane.showConfirmDialog(null, "¿Deseas proceder con el cobro e imprimir el pedido?", "Confirmar Venta", JOptionPane.YES_NO_OPTION);
 		     if (respuesta == JOptionPane.YES_OPTION) {
+		    	 double totalNumerico = 0.0;
+		            for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+		                int cant = (int) modeloTabla.getValueAt(i, 0);
+		                double precio = (double) modeloTabla.getValueAt(i, 2);
+		                totalNumerico += (cant * precio);
+		            }
+		       boolean guardadoExitoso = conexionBD.guardarPedido(nombre, usuario, totalNumerico, modeloTabla);
+
+		      if (guardadoExitoso) {
 		        conexionBD.generarEImprimirPedido(modeloTabla, nombre, usuario, lblTotal.getText());
+		        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+		            int cant = (int) modeloTabla.getValueAt(i, 0);
+		            int id = (int) modeloTabla.getValueAt(i, 3);
+		            boolean esPastel = (boolean) modeloTabla.getValueAt(i, 4);
+		            if (!esPastel) { 
+		                conexionBD.modificarCantidad(id, -cant); 
+		            }
+		        }
 		        modeloTabla.setRowCount(0);
 	            actualizarTotal();        
 		            btnNewButton.setEnabled(true);
@@ -125,7 +154,8 @@ public class Ventas extends JFrame {
 		            
 		            JOptionPane.showMessageDialog(null, "Venta procesada y PDF enviado a impresión.");
 		        }
-		    }
+		     }
+			}
 		});
 		toolBar.add(btnNewButton_3);
 		
@@ -167,6 +197,15 @@ public class Ventas extends JFrame {
 	}
 	
 	public void recibirProductoSeleccionado(int id, boolean prod) {
+		for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+	        int idFila = (int) modeloTabla.getValueAt(i, 3);
+	        if (id == idFila) {
+	            int cantActual = (int) modeloTabla.getValueAt(i, 0);
+	            modeloTabla.setValueAt(cantActual + 1, i, 0);
+	            actualizarTotal();
+	            return;
+	        }
+	    }
 		int CantidadProducto = 0;
 		String nombreProducto = null;
 		double precioProducto = 0;
@@ -203,10 +242,11 @@ public class Ventas extends JFrame {
     }
 	
 	private void actualizarTotal() {
-	    double sumaTotal = 0.0;
+		double sumaTotal = 0.0;
 	    for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+	        int cant = (int) modeloTabla.getValueAt(i, 0);
 	        double precio = (double) modeloTabla.getValueAt(i, 2);
-	        sumaTotal += precio;
+	        sumaTotal += (cant * precio);
 	    }
 	    lblTotal.setText("$ " + String.format("%.2f", sumaTotal));
 	}
