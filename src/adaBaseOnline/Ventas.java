@@ -116,11 +116,10 @@ public class Ventas extends JFrame {
 		            return;}
 		     int respuesta = JOptionPane.showConfirmDialog(null, "¿Deseas proceder con el cobro e imprimir el pedido?", "Confirmar Venta", JOptionPane.YES_NO_OPTION);
 		     if (respuesta == JOptionPane.YES_OPTION) {
-		        generarEImprimirPedido();
+		        conexionBD.generarEImprimirPedido(modeloTabla, nombre, usuario, lblTotal.getText());
 		        modeloTabla.setRowCount(0);
 	            actualizarTotal();        
 		            btnNewButton.setEnabled(true);
-		            lblNewLabel_3.setText("esto es un easter egg");
 		            lblNewLabel_3.setVisible(false);
 		            nombre = null; 
 		            
@@ -212,64 +211,4 @@ public class Ventas extends JFrame {
 	    lblTotal.setText("$ " + String.format("%.2f", sumaTotal));
 	}
       
-	private void generarEImprimirPedido() {
-	    String clienteText = (nombre != null && !nombre.trim().isEmpty()) ? nombre : "Público General";
-	    String vendedorText = usuario; 
-	    String totalText = lblTotal.getText();
-	    java.awt.print.PrinterJob job = java.awt.print.PrinterJob.getPrinterJob();
-	    job.setJobName("Pedido - " + clienteText);
-	    job.setPrintable(new java.awt.print.Printable() {
-	        @Override
-	        public int print(java.awt.Graphics graphics, java.awt.print.PageFormat pageFormat, int pageIndex) throws java.awt.print.PrinterException {
-	
-	            if (pageIndex > 0) {return NO_SUCH_PAGE; }
-	            java.awt.Graphics2D g2d = (java.awt.Graphics2D) graphics;
-	            g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-	            g2d.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 10));
-	            int y = 20;
-	           
-	            g2d.drawString("=========================================", 10, y); y += 15;
-	            g2d.drawString("       DANNY DESSERTS AND MORE           ", 10, y); y += 15;
-	            g2d.drawString("=========================================", 10, y); y += 20;
-	            g2d.drawString("Cliente: " + clienteText, 10, y); y += 15;
-	            g2d.drawString("Atendió: " + vendedorText, 10, y); y += 15;
-	            g2d.drawString("-----------------------------------------", 10, y); y += 15;
-	            g2d.drawString("Cant  | Producto               | Precio  ", 10, y); y += 15;
-	            g2d.drawString("-----------------------------------------", 10, y); y += 15;
-	            
-	           
-	            for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-	                int cantidad = (int) modeloTabla.getValueAt(i, 0);
-	                String producto = (String) modeloTabla.getValueAt(i, 1);
-	                double precio = (double) modeloTabla.getValueAt(i, 2);
-	                
-	                if (producto.length() > 22) {
-	                    producto = producto.substring(0, 19) + "...";
-	                }
-	                
-	              
-	                String linea = String.format("%-5d | %-22s | $%6.2f", cantidad, producto, precio);
-	                g2d.drawString(linea, 10, y);
-	                y += 15; 
-	            }
-	            
-	            g2d.drawString("-----------------------------------------", 10, y); y += 15;
-	            g2d.drawString("TOTAL: " + totalText, 10, y); y += 15;
-	            g2d.drawString("=========================================", 10, y); y += 15;
-	            g2d.drawString("      ¡Gracias por su preferencia!       ", 10, y);
-	            
-	            return PAGE_EXISTS;
-	        }
-	    });
-
-	  
-	    if (job.printDialog()) {
-	        try {
-	            job.print(); 
-	        } catch (java.awt.print.PrinterException e) {
-	            JOptionPane.showMessageDialog(null, "Error al generar el PDF: " + e.getMessage());
-	            e.printStackTrace();
-	        }
-	    }
-	}
 }
